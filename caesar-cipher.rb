@@ -6,12 +6,20 @@ def caesar_cipher(str, encrypt_key)
       ascii_code = char.ord - encrypt_key
       
       if char.ord >= 97 && char.ord <= 122 
-        if ascii_code < 97
+        while ascii_code < 97 do
           ascii_code = 123 - (97 - ascii_code)
         end
+
+        while ascii_code > 122
+          ascii_code = 96 + (ascii_code - 122)
+        end
       elsif char.ord >= 65 && char.ord <= 90
-        if ascii_code < 65
+        while ascii_code < 65 do
           ascii_code = 91 - (65 - ascii_code)
+        end
+
+        while ascii_code > 90
+          ascii_code = 64 + (ascii_code - 90)
         end
       end
 
