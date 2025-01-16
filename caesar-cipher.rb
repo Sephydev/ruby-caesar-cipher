@@ -1,5 +1,4 @@
-def caesar_cipher(str)
-  encrypt_key = 4
+def caesar_cipher(str, encrypt_key)
   encrypted_str = ""
 
   str.each_char do |char|
@@ -26,5 +25,6 @@ def caesar_cipher(str)
 end
 
 str = gets.chomp
+encrypt_key = gets.chomp.to_i
 
-puts caesar_cipher(str)
+puts caesar_cipher(str, encrypt_key)
