@@ -1,4 +1,4 @@
-def caesar_cipher(str, encrypt_key)
+def encrypt(str, encrypt_key)
   encrypted_str = ""
 
   str.each_char do |char|
@@ -36,10 +36,25 @@ def caesar_cipher(str, encrypt_key)
   encrypted_str
 end
 
-puts "Please enter a text to encrypt: "
-str = gets.chomp
-puts "Please enter a key(number) to encrypt your text:"
-encrypt_key = gets.chomp.to_i
+def caesar_cipher
+  str = ""
+  encrypt_key = 0
+  
+  loop do
+    puts "Please enter a text to encrypt: "
+    str = gets.chomp
+    puts "Please enter a key(number) to encrypt your text:"
+    encrypt_key = gets.chomp.to_i
 
-puts caesar_cipher(str, encrypt_key)
+    unless encrypt_key == 0
+      break;
+    end
+
+    puts "Please enter a valid key(number)."
+  end
+
+  puts encrypt(str, encrypt_key)
+end
+
+caesar_cipher
 
