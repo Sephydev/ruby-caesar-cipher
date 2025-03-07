@@ -1,60 +1,44 @@
-def encrypt(str, encrypt_key)
-  encrypted_str = ""
+class CaesarCipher
+  def initialize(text, shift)
+    @text = text
+    @shift = shift
+    @encrypted_text = ""
+  end
 
-  str.each_char do |char|
-      ascii_code = char.ord + encrypt_key
-      
+  def encrypt(text = @text, shift = @shift)
+    text.each_char do |char|
+      ascii_code = char.ord + shift
+
       if char.ord.between?(97, 122)
-
-        while ascii_code < 97 do
-          ascii_code = 123 - (97 - ascii_code)
-        end
-
-        while ascii_code > 122
-          ascii_code = 96 + (ascii_code - 122)
-        end
-
+        ascii_code = encrypt_lowercase(ascii_code)
       elsif char.ord.between?(65, 90)
-
-        while ascii_code < 65 do
-          ascii_code = 91 - (65 - ascii_code)
-        end
-
-        while ascii_code > 90
-          ascii_code = 64 + (ascii_code - 90)
-        end
-
+        ascii_code = encrypt_uppercase(ascii_code)
       else
-        encrypted_str += char
+        @encrypted_text += char
       end
 
-      if ascii_code.between?(97,122) || ascii_code.between?(65,90)
-        encrypted_str += ascii_code.chr
-      end
-  end
-
-  encrypted_str
-end
-
-def caesar_cipher
-  str = ""
-  encrypt_key = 0
-  
-  loop do
-    puts "Please enter a text to encrypt: "
-    str = gets.chomp
-    puts "Please enter a key(number) to encrypt your text:"
-    encrypt_key = gets.chomp.to_i
-
-    unless encrypt_key == 0
-      break;
+      @encrypted_text += ascii_code.chr if ascii_code.between?(97, 122) || ascii_code.between?(65, 90)
     end
-
-    puts "Please enter a valid key(number)."
+    @encrypted_text
   end
 
-  puts encrypt(str, encrypt_key)
+  def encrypt_lowercase(ascii_code)
+    ascii_code = 123 - (97 - ascii_code) while ascii_code < 97
+    ascii_code = 96 + (ascii_code - 122) while ascii_code > 122
+    ascii_code
+  end
+
+  def encrypt_uppercase(ascii_code)
+    ascii_code = 91 - (65 - ascii_code) while ascii_code < 65
+    ascii_code = 64 + (ascii_code - 90) while ascii_code > 90
+    ascii_code
+  end
+
+  def display_encrypted_text
+    puts "The encrypted text is: #{@encrypted_text}"
+  end
 end
 
-caesar_cipher
-
+# caesar = CaesarCipher.new("Hello", 5)
+# caesar.encrypt
+# caesar.display_encrypted_text
